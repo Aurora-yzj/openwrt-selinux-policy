@@ -437,7 +437,7 @@ is reachable on the network, and perform the upgrade.
 [kcinimod@brutus ~]$ scp /home/kcinimod/openwrt-imagebuilder-mvebu-cortexa9.Linux-x86_64/bin/targets/mvebu/cortexa9/openwrt-mvebu-cortexa9-linksys_wrt1900acs-squashfs-sysupgrade.bin root@192.168.1.1:/tmp/openwrt-mvebu-cortexa9-linksys_wrt1900acs-squashfs-sysupgrade.bin
 [kcinimod@brutus ~]$ ssh root@192.168.1.1
 ...
-[root@OpenWrt:~# sysupgrade -F -n -v /tmp/*.bin
+[root@OpenWrt:~]# sysupgrade -F -n -v /tmp/*.bin
 Commencing upgrade. Closing aall shell sessions.
 ...
 ```
@@ -449,7 +449,7 @@ issues.
 ```
 [kcinimod@brutus ~]$ ssh root@192.168.1.1
 ...
-[root@OpenWrt:~# sestatus
+[root@OpenWrt:~]# sestatus
 SELinux status:           enabled
 SELinuxfs mount:          /sys/fs/selinux
 Current mode:             permissive
@@ -484,15 +484,15 @@ that everyone can benefit.
 
 ## Create the script
 ```
-[root@OpenWrt:~# printf '#!/bin/sh\n echo "hello from: $(id -Z)\n"' > /root/helloworld
-[root@OpenWrt:~# chmod +x /root/helloworld
+[root@OpenWrt:~]# printf '#!/bin/sh\n echo "hello from: $(id -Z)\n"' > /root/helloworld
+[root@OpenWrt:~]# chmod +x /root/helloworld
 ```
 ## Testing the script
 ```
-[root@OpenWrt:~# /root/helloworld
+[root@OpenWrt:~]# /root/helloworld
 hello from: u:r:sys.subj
 
-[root@OpenWrt:~# exit
+[root@OpenWrt:~]# exit
 ```
 The script works but the output of the script indicates that it
 currently operates with the "unconfined" `u:r:sys.subj` context. We
@@ -528,8 +528,8 @@ and the file context for `/root/helloworld` can be applied with
 [kcinimod@brutus selinux-policy-myfork]$ scp policy.31 root@192.168.1.1:/etc/selinux/selinux-policy-myfork/policy/policy.31
 [kcinimod@brutus selinux-policy-myfork]$ scp file_contexts root@192.168.1.1:/etc/selinux/selinux-policy-myfork/contexts/files/file_contexts
 [kcinimod@brutus selinux-policy-myfork[$ ssh root@192.168.1.1
-[root@OpenWrt:~# load_policy
-[root@OpenWrt:~# restorecon -v /root/helloworld
+[root@OpenWrt:~]# load_policy
+[root@OpenWrt:~]# restorecon -v /root/helloworld
 restorecon: reset /root/helloworld context u:r:file.homefile->u:r:helloworld.execfile
 ```
 Now it is time to test but before we do will clear the kernel
@@ -544,12 +544,12 @@ avoid flooding of the logs. If you want to force this cache to be
 flushed you can toggle the mode from permissve to enforcing and then
 back from enforcing to permissive.
 ```
-[root@OpenWrt:~# dmesg -c
-[root@OpenWrt:~# setenforce 1 && setenforce 0
-[root@OpenWrt:~# /root/helloworld
+[root@OpenWrt:~]# dmesg -c
+[root@OpenWrt:~]# setenforce 1 && setenforce 0
+[root@OpenWrt:~]# /root/helloworld
 hello from: u:r:helloworld.subj
 
-[root@OpenWrt:~#
+[root@OpenWrt:~]#
 ```
 The test concluded that the specified "domain transition" from
 `u:r:sys.subj` to `u:r:helloworld.subj` took place and since were still
@@ -562,9 +562,9 @@ indicating that the process has all the permissions it needs to
 function.
 
 ```
-[root@OpenWrt:~# dmesg | grep -i denied
+[root@OpenWrt:~]# dmesg | grep -i denied
 ...
-[root@OpenWrt:~# exit
+[root@OpenWrt:~]# exit
 ```
 We will now append some of the rules we were able to identify from
 the output of the `dmesg | grep -i denied` command. Some of these
@@ -603,26 +603,26 @@ caches, retry and check `dmesg`
 [kcinimod@brutus selinux-policy-myfork]$ scp policy.31 root@192.168.1.1:/etc/selinux/selinux-policy-myfork/policy/policy.31
 [kcinimod@brutus selinux-policy-myfork]$ scp file_contexts root@192.168.1.1:/etc/selinux/selinux-policy-myfork/contexts/files/file_contexts
 [kcinimod@brutus selinux-policy-myfork[$ ssh root@192.168.1.1
-[root@OpenWrt:~# load_policy
-[root@OpenWrt:~# dmesg -c
-[root@OpenWrt:~# setenforce 1 && setenforce 0
-[root@OpenWrt:~# /root/helloworld
+[root@OpenWrt:~]# load_policy
+[root@OpenWrt:~]# dmesg -c
+[root@OpenWrt:~]# setenforce 1 && setenforce 0
+[root@OpenWrt:~]# /root/helloworld
 hello from: u:r:helloworld.subj
 
-[root@OpenWrt:~# dmesg | grep -i denied
+[root@OpenWrt:~]# dmesg | grep -i denied
 ...
 ```
 The above `dmesg` command prints one more "avc denial" in permissive
 mode, lets try this in enforcing mode.
 ```
-[root@OpenWrt:~# dmesg -c
-[root@OpenWrt:~# setenforce 1
-[root@OpenWrt:~# /root/helloworld
+[root@OpenWrt:~]# dmesg -c
+[root@OpenWrt:~]# setenforce 1
+[root@OpenWrt:~]# /root/helloworld
 hello from: u:r:helloworld.subj
 
-[root@OpenWrt:~# dmesg | grep -i denied
+[root@OpenWrt:~]# dmesg | grep -i denied
 ...
-[root@OpenWrt:~# exit
+[root@OpenWrt:~]# exit
 ```
 It works in enforcing mode. We can just add that last rule and then
 push the policy to GitHub, and use that to build a new `ipk` package,
@@ -704,7 +704,7 @@ is reachable on the network, and perform the upgrade.
 [kcinimod@brutus ~]$ scp /home/kcinimod/openwrt-imagebuilder-mvebu-cortexa9.Linux-x86_64/bin/targets/mvebu/cortexa9/openwrt-mvebu-cortexa9-linksys_wrt1900acs-squashfs-sysupgrade.bin root@192.168.1.1:/tmp/openwrt-mvebu-cortexa9-linksys_wrt1900acs-squashfs-sysupgrade.bin
 [kcinimod@brutus ~]$ ssh root@192.168.1.1
 ...
-[root@OpenWrt:~# sysupgrade -F -n -v /tmp/*.bin
+[root@OpenWrt:~]# sysupgrade -F -n -v /tmp/*.bin
 Commencing upgrade. Closing aall shell sessions.
 ...
 ```
