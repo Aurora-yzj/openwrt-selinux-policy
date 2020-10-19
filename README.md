@@ -104,7 +104,7 @@ Select the "Build OpenWrt Image Builder" option from the menu.
 ```
     [*] Build the OpenWrt Image Builder
 ```
-Now we'll enable SELinux in a "Global Build Settings" submenu.
+Now we'll enable SELinux in the "Global Build Settings" submenu.
 ```
     Global build settings  --->
         [*] Enable SELinux (NEW)
