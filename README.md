@@ -395,7 +395,7 @@ If the operation succeeds then the `ipk` package can be found in
 `~/openwrt/bin/packages/*/custom
 
 ```
-[kcinimod@brutus openwrt]$ ls ~/openwrt/bin/packages/a*/custom/*.ipk
+[kcinimod@brutus openwrt]$ ls ~/openwrt/bin/packages/*/custom/*.ipk
 /home/kcinimod/openwrt/bin/packages/arm_cortex-a9_vfpv3-d16/custom/selinux-policy-myfork_2020-10-19-4b8d8c06_all.ipk
 ```
 
