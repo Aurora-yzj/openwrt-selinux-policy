@@ -603,7 +603,7 @@ Replace `PKG_SOURCE_VERSION` (use the commit ID of your latest commit).
 [kcinimod@brutus selinux-policy-myfork]$ cd ~
 [kcinimod@brutus ~]$ sed -i 's/PKG_SOURCE_VERSION:=4b8d8c06c5f1dc8641b2b08b44d7fde955e2b9db/PKG_SOURCE_VERSION:=c5e28890e61bed077477bcc526b8fb6639728c93/' mypackages/selinux-policy-myfork/Makefile
 ```
-Change to "mode from config" to "enforcing".
+Change the "mode from config" to "enforcing".
 ```
 [kcinimod@brutus ~]$ sed -i 's/SELINUX=.*/SELINUX=enforcing/' mypackages/selinux-policy-myfork/files/selinux-config
 ```
