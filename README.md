@@ -465,7 +465,7 @@ Policy from config file:  selinux-policy-myfork
 
 The next step will be to extent the policy by targeting a simple
 `helloworld` shell script. I will not get into the details of
-writhing SELinux policy in this exercise. The policy is written in
+writing SELinux policy in this exercise. The policy is written in
 [Common Intermediate Language](https://github.com/SELinuxProject/selinux/blob/master/secilc/docs/README.md)
 and I am working on documentation that should help you find your way
 in
