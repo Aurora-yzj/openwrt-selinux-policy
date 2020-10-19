@@ -153,7 +153,7 @@ all modules so that you can have a good idea of whether and how things
 work in the default scenario.
 
 For the sake of example we will however exclude an optional module
-that is not depended on be any other modules just to give you an
+that is not depended on by any other modules just to give you an
 example of how you would currently go about assembling and building
 the `selinux-policy` with custom module selection. Picking and
 choosing modules to install can be tricky as modules may have
