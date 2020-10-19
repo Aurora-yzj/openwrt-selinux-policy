@@ -1,4 +1,4 @@
-# OpennWrt SELinux policy customization and testing overview
+# OpenWrt SELinux policy customization and testing overview
 
 ## Intro
 
