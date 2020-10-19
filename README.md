@@ -284,7 +284,7 @@ ea02304..4b8d8c0  master -> master
 
 ## Creating selinux-policy-myfork ipk
 
-Now we should package the policy so that it can be enclose with a
+Now we should package the policy so that it can be enclosed with a
 factory and sysupgrade image using our `Image Builder` For this we
 have to create a package manifest and it so happens that our
 `selinux-policy-myfork` repository has a template for this at
@@ -406,8 +406,8 @@ We'll extract the Image Build archive first.
 [kcinimod@brutus ~]$ mv ~/openwrt/bin/targets/*/*/openwrt-imagebuilder*.tar.xz ~
 [kcinimod@brutus ~]$ tar xf openwrt-imagebuilder*.tar.xz
 ```
-Now that we have a package we can enclose with our images using "Image
-Builder". We currently have to tell Image builder to include
+Now that we have a package we can enclose it with our images using
+"Image Builder". We currently have to tell Image builder to include
 "procd-selinux","busybox-selinux" and to exclude "procd","busybox".
 
 ```
