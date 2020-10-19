@@ -441,7 +441,7 @@ is reachable on the network, and perform the upgrade.
 [kcinimod@brutus ~]$ ssh root@192.168.1.1
 ...
 [root@OpenWrt:~]# sysupgrade -F -n -v /tmp/*.bin
-Commencing upgrade. Closing aall shell sessions.
+Commencing upgrade. Closing all shell sessions.
 ...
 ```
 Give it a moment to reboot and log back into the device. Verify
