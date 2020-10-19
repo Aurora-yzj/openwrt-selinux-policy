@@ -351,7 +351,6 @@ the bottom of the screen.
 Create the ipk package
 ```
 [kcinimod@brutus openwrt]$ make package/selinux-policy-myfork/compile
-...
 ```
 If the operation succeeds then the `ipk` package can be found in
 `~/openwrt/bin/packages/*/custom
@@ -471,7 +470,6 @@ procedure to test and refine the policy until it works.
 ;; it will cause selinux to automatically transition the context of any process associated with u:r:sys.subj to u:r:helloworld.subj when files with the u:r:helloworld.execfile context are executed
 EOF
 [kcinimod@brutus selinux-policy-myfork]$ make myfork
-...
 ```
 The compiled `policy.31` result and `file_contexts` file found
 in `~/selinux-policy-myfork` can be copied over to the router with the
@@ -562,7 +560,6 @@ caches, retry and check `dmesg`.
 hello from: u:r:helloworld.subj
 
 [root@OpenWrt:~]# dmesg | grep -i denied
-...
 ```
 The above `dmesg` command prints one more "avc denial" in permissive
 mode, lets try this in enforcing mode.
@@ -573,7 +570,6 @@ mode, lets try this in enforcing mode.
 hello from: u:r:helloworld.subj
 
 [root@OpenWrt:~]# dmesg | grep -i denied
-...
 [root@OpenWrt:~]# exit
 ```
 It works in enforcing mode. We can just add that last rule and then
