@@ -403,7 +403,7 @@ If the operation succeeds then the `ipk` package can be found in
 
 ## Create factory and sysupgrade images with selinux-policy-myfork using IB
 
-We'll extract the Image Build archive first.
+We'll extract the Image Builder archive first.
 ```
 [kcinimod@brutus openwrt]$ cd ~
 [kcinimod@brutus ~]$ mv ~/openwrt/bin/targets/*/*/openwrt-imagebuilder*.tar.xz ~
