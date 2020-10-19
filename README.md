@@ -136,7 +136,7 @@ specified image, I pointed it to the built
 `~/openwrt/bin/targets//mvebu/cortexa9/openwrt-mvebu-cortexa9-linksys_wrt1900acs-squashfs-factory.img`
 factory image and confirmed multiple times that I want to flash the
 device using this image.
-* The device rebooted and I used `ssh root@192.126.1.1` to log into
+* The device rebooted and I used `ssh root@192.168.1.1` to log into
 the device.
 * Then I followed the
 [Feedback Checklist](feedbackchecklist.md#feedback-checklist) to see
