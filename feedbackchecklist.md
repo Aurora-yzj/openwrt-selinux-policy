@@ -10,3 +10,4 @@ These are some area's to check for anomalies:
 context `u:r:sys.subj`
 * The command `dmesg | grep -i selinux` should not print any warnings
 * The command `dmesg | grep -i denied` should not print any avc denials
+* The should be no files in `/` with context `u:r:unknown.miscfile`
