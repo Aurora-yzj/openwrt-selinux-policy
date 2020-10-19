@@ -574,7 +574,7 @@ experience you learn to recognise certain patterns and you learn
 to correlate that to provided macros and templates used to address
 these.
 
-There is another gotcha you should be aware off. There are rules
+There is another gotcha you should be aware of. There are rules
 present in the policy that instruct SELinux to "silently" block
 specified events. This functionality can be useful if you want to
 block some access on purpose without SELinux printing "avc denials".
