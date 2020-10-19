@@ -1,5 +1,7 @@
 # OpenWrt SELinux policy customization and testing overview
 
+⚠️WARNINGG !!! THESE PROCEDURES MAY RESULT IN BRICKED OR INACCESSIBLE DEVICES !!!⚠️
+
 ## Intro
 
 This example demonstrates OpenWrt SELinux policy customization and
