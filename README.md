@@ -254,9 +254,9 @@ myfork.%: $(modulesmyfork)
 ```
 Test the build:
 ```
-cd ~/selinux-policy-myfork
-make
-echo $?
+[kcinimod@brutus ~]$ cd ~/selinux-policy-myfork
+[kcinimod@brutus selinux-policy-myfork]$ make myfork
+[kcinimod@brutus selinux-policy-myfork]$ echo $?
 ```
 If the built failed then look carefully at the compiler output as it
 will report any dependency issues that you can then resolve and try
@@ -291,8 +291,9 @@ Create a local feeds directory (example ~/mypackages)
 [kcinimod@brutus selinux-policy-myfork]$ cd ~
 [kcinimod@brutus ~]$ mkdir mypackages
 ```
-Copy to ~/selinux-policy-myfork/support/selinux-policy-XXXX to the
-local feeds directory and rename it to selinux-policy-myfork.
+Copy `~/selinux-policy-myfork/support/selinux-policy-XXXX` to the
+local feeds `~/mypackages` directory and rename it to
+selinux-policy-myfork.
 ```
 [kcinimod@brutus ~]$ cp -r selinux-policy-myfork/support/selinux-policy-XXXX mypackages/selinux-policy-myfork
 ```
