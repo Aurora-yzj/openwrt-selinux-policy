@@ -102,7 +102,7 @@ Select the "Build OpenWrt Image Builder" option from the menu.
 ```
     [*] Build the OpenWrt Image Builder
 ```
-Now we'll enable SELinux in a "Global Build Settings" sub menu.
+Now we'll enable SELinux in a "Global Build Settings" submenu.
 ```
     Global build settings  --->
         [*] Enable SELinux (NEW)
@@ -256,10 +256,11 @@ myfork: myfork.$(polvers)
 myfork.%: $(modulesmyfork)
 	secilc -vvv --policyvers=$* $^
 ```
-Test the build:
+See if it builds:
 ```
 [kcinimod@brutus ~]$ cd ~/selinux-policy-myfork
 [kcinimod@brutus selinux-policy-myfork]$ make myfork
+...
 [kcinimod@brutus selinux-policy-myfork]$ echo $?
 ```
 If the built failed then look carefully at the compiler output as it
@@ -282,7 +283,7 @@ To github.com:doverride/selinux-policy-myfork.git
 ea02304..4b8d8c0  master -> master
 ```
 
-## Creating selinux-policy-myfork ipk
+## Creating selinux-policy-myfork ipk package
 
 Now we should package the policy so that it can be enclosed with a
 factory and sysupgrade image using our `Image Builder` For this we
@@ -290,7 +291,7 @@ have to create a package manifest and it so happens that our
 `selinux-policy-myfork` repository has a template for this at
 `~/selinux-policy-myfork/support` that can be used as a reference.
 
-Create a local feeds directory (example ~/mypackages)
+Create a local feeds directory (example ~/mypackages).
 ```
 [kcinimod@brutus selinux-policy-myfork]$ cd ~
 [kcinimod@brutus ~]$ mkdir mypackages
@@ -560,7 +561,6 @@ be interpretted and translated to policy that we can append, and then
 test. Eventually no new "avc denials" should be printed to `dmesg`
 indicating that the process has all the permissions it needs to
 function.
-
 ```
 [root@OpenWrt:~]# dmesg | grep -i denied
 ...
@@ -598,7 +598,7 @@ EOF
 ```
 Same procedure as before, copy over the `policy.31` and
 `file_contexts` files, reload policy, clear the ring buffer, flush
-caches, retry and check `dmesg`
+caches, retry and check `dmesg`.
 ```
 [kcinimod@brutus selinux-policy-myfork]$ scp policy.31 root@192.168.1.1:/etc/selinux/selinux-policy-myfork/policy/policy.31
 [kcinimod@brutus selinux-policy-myfork]$ scp file_contexts root@192.168.1.1:/etc/selinux/selinux-policy-myfork/contexts/files/file_contexts
@@ -648,18 +648,18 @@ We have to adjust two things:
 * the ~/mypackages/selinux-policy-myfork/Makefile `PKG_SOURCE_VERSION`
 has to be updated to point to the new latest Git commit ID
 * the ~/mypackages/selinux-policy/myfile/files/selinux-config has to
-be updated to change the mode from permissive to enforcing
+be updated to change the mode from permissive to enforcing.
 
-Replace `PKG_SOURCE_VERSION` (use the commit ID of your latest commit)
+Replace `PKG_SOURCE_VERSION` (use the commit ID of your latest commit).
 ```
 [kcinimod@brutus selinux-policy-myfork]$ cd ~
 [kcinimod@brutus ~]$ sed -i 's/PKG_SOURCE_VERSION:=4b8d8c06c5f1dc8641b2b08b44d7fde955e2b9db/PKG_SOURCE_VERSION:=c5e28890e61bed077477bcc526b8fb6639728c93/' mypackages/selinux-policy-myfork/Makefile
 ```
-Change to "mode from config" to "enforcing"
+Change to "mode from config" to "enforcing".
 ```
 [kcinimod@brutus ~]$ sed -i 's/SELINUX=.*/SELINUX=enforcing/' mypackages/selinux-policy-myfork/files/selinux-config
 ```
-Create the updated ipk package
+Create the updated ipk package.
 ```
 [kcinimod@brutus ~]$ cd openwrt
 [kcinimod@brutus openwrt]$ make package/selinux-policy-myfork/compile
@@ -667,7 +667,7 @@ Collecting package info: done
 ...
 ```
 If the operation succeeds then the `ipk` package can be found in
-`~/openwrt/bin/packages/*/custom
+`~/openwrt/bin/packages/*/custom.
 
 ```
 [kcinimod@brutus openwrt]$ ls ~/openwrt/bin/packages/*/custom/*.ipk
@@ -685,7 +685,7 @@ Checking 'working-make'... ok.
 ...
 Calculating checksums...
 ```
-This should yield factory and sysupgrade images that can be deployed
+This should yield factory and sysupgrade images that can be deployed.
 ```
 [kcinimod@brutus openwrt-imagebuilder-mvebu-cortexa9.Linux-x86_64]$ ls bin/targets/*/*
 openwrt-mvebu-cortexa9-linksys_wrt1900acs-linksys_wrt1900acs-linksys_wrt1900acs.manifest
