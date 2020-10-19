@@ -26,7 +26,7 @@ The purpose of this exercise is to help familiarize potential
 contributors with the procedure of SELinux policy development for
 OpenWrt. OpenWrt can be configured and assembled in many way's and the
 more scenario's are tested and supported the better. Please see
-[Wish List](wishliist.md#wish-list) for a list of known configurations
+[Wish List](wishlist.md#wish-list) for a list of known configurations
 that are not yet currently addressed and that need attention. Also see
 [Feedback Checklist](feedbackchecklist.md#feedback-checklist) for a
 list of requested information -and instructions to gather this
