@@ -356,7 +356,7 @@ Replace the final occurance of "selinux-policy-XXXX"
 ```
 [kcinimod@brutus ~]$ sed -i 's/selinux-policy-XXXX/selinux-policy-myfork/' mypackages/selinux-policy-myfork/Makefile
 ```
-Change to "mode from config" to "permissive" and change the policy model to "selinux-policy-myfork"
+Change the "mode from config" to "permissive" and change the policy model to "selinux-policy-myfork"
 ```
 [kcinimod@brutus ~]$ sed -i 's/SELINUX=.*/SELINUX=permissive/' mypackages/selinux-policy-myfork/files/selinux-config
 [kcinimod@brutus ~]$ sed -i 's/SELINUXTYPE=.*/SELINUXTYPE=selinux-policy-myfork/' mypackages/selinux-policy-myfork/files/selinux-config
