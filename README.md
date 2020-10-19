@@ -539,10 +539,10 @@ triggered by us copying the policy.31 and file_contexts files over,
 because SELinux would not have permitted these operations if it were
 enforcing the policy.
 
-Another thing to be aware of is that selinux will cache events and
+Another thing to be aware of is that SELinux will cache events and
 events that occur in permissive mode will only be printed once to
 avoid flooding of the logs. If you want to force this cache to be
-flushed you can toggle the mode from permissve to enforcing and then
+flushed you can toggle the mode from permissive to enforcing and then
 back from enforcing to permissive.
 ```
 [root@OpenWrt:~]# dmesg -c
