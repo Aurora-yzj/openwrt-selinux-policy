@@ -12,10 +12,11 @@ familiarize yourself with this procedure.
 
 This example uses Fedora 34 GNU/Linux for image building and there is
 atleast twenty Gigabytes of storage available on the build system.
-The policy will be deployed and tested on a Linksys WRT1900ACS wirelss
-router. In addition to the above we have access to a Git repository
-that can be accessed with the `https://` protocol. This can be a
-private Git repository or a public service such as GitLab or GitHub.
+The policy will be deployed and tested on a Linksys WRT1900ACS
+wireless router. In addition to the above we have access to a Git
+repository that can be accessed with the `https://` protocol. This can
+be a private Git repository or a public service such as GitLab or
+GitHub.
 
 ## Goals
 
@@ -133,7 +134,7 @@ of doing a factory install is documented elsewhere but:
 * The interface provides an option to manually flash the device with a
 specified image, I pointed it to the built
 `~/openwrt/bin/targets//mvebu/cortexa9/openwrt-mvebu-cortexa9-linksys_wrt1900acs-squashfs-factory.img`
-factory image and confirmed multiply times that I want to flash the
+factory image and confirmed multiple times that I want to flash the
 device using this image.
 * The device rebooted and I used `ssh root@192.126.1.1` to log into
 the device.
