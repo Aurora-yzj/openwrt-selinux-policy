@@ -534,7 +534,7 @@ However sometimes these events might actually be needed. The
 options but thats out of scope for this exercise and for now
 suffice to say that "helloworld" wants to operate on the terminal as
 it needs to print the output to the terminal but the policy has rules
-that tell selinux to silently block this access.
+that tell SELinux to silently block this access.
 ```
 [kcinimod@brutus selinux-policy-myfork]$ cat >> src/agent/helloworld.cil <<EOF
 (in .helloworld ;; insert into existing helloworld container
