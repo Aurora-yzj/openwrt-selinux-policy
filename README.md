@@ -533,7 +533,7 @@ and the file context for `/root/helloworld` can be applied with
 [root@OpenWrt:~]# restorecon -v /root/helloworld
 restorecon: reset /root/helloworld context u:r:file.homefile->u:r:helloworld.execfile
 ```
-Now it is time to test but before we do will clear the kernel
+Now it is time to test but before we do we will clear the kernel
 ring buffer so that we do not get confused by any "avc denials"
 triggered by us copying the policy.31 and file_contexts files over,
 because SELinux would not have permitted these operations if it were
