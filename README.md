@@ -647,7 +647,7 @@ We have to adjust two things:
 
 * the ~/mypackages/selinux-policy-myfork/Makefile `PKG_SOURCE_VERSION`
 has to be updated to point to the new latest Git commit ID
-* the ~/mypackages/selinux-policy/myfile/files/selinux-config has to
+* the ~/mypackages/selinux-policy-myfork/files/selinux-config has to
 be updated to change the mode from permissive to enforcing.
 
 Replace `PKG_SOURCE_VERSION` (use the commit ID of your latest commit).
