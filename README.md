@@ -304,7 +304,7 @@ selinux-policy-myfork.
 ```
 [kcinimod@brutus ~]$ cp -r selinux-policy-myfork/support/selinux-policy-XXXX mypackages/selinux-policy-myfork
 ```
-Replace `PKG_NAME`:
+Replace `PKG_NAME`
 ```
 [kcinimod@brutus ~]$ sed -i 's/PKG_NAME:=selinux-policy-XXXX/PKG_NAME:=selinux-policy-myfork/' mypackages/selinux-policy-myfork/Makefile
 ```
@@ -312,7 +312,7 @@ Replace `PKG_SOURCE` (point to your repository `https://` as this is where the s
 ```
 [kcinimod@brutus ~]$ sed -i 's#PKG_SOURCE_URL:=https://XXXX/selinux-policy-XXXX.git#PKG_SOURCE_URL:=https://github.com/doverride/selinux-policy-myfork.git#' mypackages/selinux-policy-myfork/Makefile
 ```
-Replace `PKG_SOURCE_DATA` (use the current date or the date of the last commit):
+Replace `PKG_SOURCE_DATE` (use the current date or the date of the last commit):
 ```
 [kcinimod@brutus ~]$ sed -i 's/PKG_SOURCE_DATE:=XXXX-XX-XX/PKG_SOURCE_DATE:=2020-10-19/' mypackages/selinux-policy-myfork/Makefile
 ```
