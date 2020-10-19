@@ -184,38 +184,16 @@ the upstream `selinux-policy`, simply consolidate the two, and push
 ```
 [kcinimod@brutus openwrt]$ cd ~
 [kcinimod@brutus ~]$ git clone git@github.com:doverride/selinux-policy-myfork.git
-Cloning into 'selinux-policy-myfork'...
-warning: You appear to have cloned an empty repository.
 [kcinimod@brutus ~]$ git clone https://git.defensec.nl/selinux-policy.git
-Cloning into 'selinux-policy'...
-remote: Enumerating objects: 2079, done.
-remote: Counting objects: 100% (2079/2079), done.
-remote: Compressing objects: 100% (1810/1810), done.
-remote: Total 2079 (delta 1654), reused 292 (delta 245), pack-reused 0
-Receiving objects: 100% (2079/2079), 505.82 KiB | 11.50 MiB/s, done.
-Resolving deltas: 100% (1654/1654), done.
 [kcinimod@brutus ~]$ rm -rf selinux-policy/.git
 [kcinimod@brutus ~]$ cp -r selinux-policy-myfork/.git selinux-policy/.git
 [kcinimod@brutus ~]$ rm -rf selinux-policy-myfork
 [kcinimod@brutus ~]$ mv selinux-policy selinux-policy-myfork
 [kcinimod@brutus ~]$ cd selinux-policy-myfork
 [kcinimod@brutus selinux-policy-myfork (master #)]$ git init .
-Reinitialized existing Git repository in /home/kcinimod/selinux-policy-myfork/.git/
 [kcinimod@brutus selinux-policy-myfork (master #)]$ git add .
 [kcinimod@brutus selinux-policy-myfork (master +)]$ git commit -am 'initial commit'
-[master (root-commit) ea02304] initial commit
-344 files changed, 44171 insertions(+)
-...
 [kcinimod@brutus selinux-policy-myfork (master)]$ git push
-Enumerating objects: 386, done.
-Counting objects: 100% (386/386), done.
-Delta compression using up to 8 threads
-Compressing objects: 100% (375/375), done.
-Writing objects: 100% (386/386), 167.85 KiB | 2.27 MiB/s, done.
-Total 386 (delta 259), reused 0 (delta 0), pack-reused 0
-remote: Resolving deltas: 100% (259/259), done.
-To github.com:doverride/selinux-policy-myfork.git
-* [new branch]      master -> master
 ```
 
 ## Adding a custom target to the Makefile
@@ -262,7 +240,6 @@ See if it builds:
 ```
 [kcinimod@brutus ~]$ cd ~/selinux-policy-myfork
 [kcinimod@brutus selinux-policy-myfork]$ make myfork
-...
 [kcinimod@brutus selinux-policy-myfork]$ echo $?
 ```
 If the built failed then look carefully at the compiler output as it
@@ -271,18 +248,7 @@ again. if the built succeeded then commit the result and push it to
 GitHub.
 ```
 [kcinimod@brutus selinux-policy-myfork (master *=)]$ git commit -am "added myfork target to makefile"
-[master 4b8d8c0] added myfork target to makefile
-1 file changed, 7 insertions(+), 1 deletion(-)
 [kcinimod@brutus selinux-policy-myfork (master>)]$ git push
-Enumerating objects: 5, done.
-Counting objects: 100% (5/5), done.
-Delta compression using up to 8 threads
-Compressing objects: 100% (3/3), done.
-Writing objects: 100% (3/3), 1.04 KiB | 1.04 MiB/s, done.
-Total 3 (delta 2), reused 0 (delta 0), pack-reused 0
-remote: Resolving deltas: 100% (2/2), completed with 2 local objects.
-To github.com:doverride/selinux-policy-myfork.git
-ea02304..4b8d8c0  master -> master
 ```
 
 ## Creating selinux-policy-myfork ipk package
@@ -365,12 +331,7 @@ Add/update the "mypackages" custom feed and selinux-policy-myfork
 ```
 [kcinimod@brutus ~]$ echo "src-link custom ${HOME}/mypackages" >> openwrt/feeds.conf.default
 [kcinimod@brutus ~]$ ./openwrt/scripts/feeds update custom
-Updating feed 'custom' from '/home/kcinimod/mypackages' ...
-Create index file './feeds/custom.index'
-Collecting package info: done
-Collecting target info: done
 [kcinimod@brutus ~]$ ./openwrt/scripts/feeds install selinux-policy-myfork
-Installing package 'selinux-policy-myfork' from custom
 ```
 We have to run `menuconfig` again to select selinux-policy-myfork.
 ```
@@ -390,12 +351,10 @@ the bottom of the screen.
 Create the ipk package
 ```
 [kcinimod@brutus openwrt]$ make package/selinux-policy-myfork/compile
-Collecting package info: done
 ...
 ```
 If the operation succeeds then the `ipk` package can be found in
 `~/openwrt/bin/packages/*/custom
-
 ```
 [kcinimod@brutus openwrt]$ ls ~/openwrt/bin/packages/*/custom/*.ipk
 /home/kcinimod/openwrt/bin/packages/arm_cortex-a9_vfpv3-d16/custom/selinux-policy-myfork_2020-10-19-4b8d8c06_all.ipk
@@ -412,13 +371,9 @@ We'll extract the Image Builder archive first.
 Now that we have a package we can enclose it with our images using
 "Image Builder". We currently have to tell Image builder to include
 "procd-selinux","busybox-selinux" and to exclude "procd","busybox".
-
 ```
 [kcinimod@brutus ~]$ cd openwrt-imagebuilder*-x86_64
 [kcinimod@brutus openwrt-imagebuilder-mvebu-cortexa9.Linux-x86_64]$ make image PACKAGES="/home/kcinimod/openwrt/bin/packages/arm_cortex-a9_vfpv3-d16/custom/selinux-policy-myfork_2020-10-19-4b8d8c06_all.ipk procd-selinux busybox-selinux -busybox -procd"
-Checking 'working-make'... ok.
-...
-Calculating checksums...
 ```
 This should yield factory and sysupgrade images that can be deployed
 ```
@@ -439,10 +394,7 @@ is reachable on the network, and perform the upgrade.
 [kcinimod@brutus openwrt-imagebuilder-mvebu-cortexa9.Linux-x86_64]$ cd ~
 [kcinimod@brutus ~]$ scp /home/kcinimod/openwrt-imagebuilder-mvebu-cortexa9.Linux-x86_64/bin/targets/mvebu/cortexa9/openwrt-mvebu-cortexa9-linksys_wrt1900acs-squashfs-sysupgrade.bin root@192.168.1.1:/tmp/openwrt-mvebu-cortexa9-linksys_wrt1900acs-squashfs-sysupgrade.bin
 [kcinimod@brutus ~]$ ssh root@192.168.1.1
-...
 [root@OpenWrt:~]# sysupgrade -F -n -v /tmp/*.bin
-Commencing upgrade. Closing all shell sessions.
-...
 ```
 Give it a moment to reboot and log back into the device. Verify
 that your policy model is used and, again, follow the
@@ -451,7 +403,6 @@ if all works well and if it does not then fix and/or report any
 issues.
 ```
 [kcinimod@brutus ~]$ ssh root@192.168.1.1
-...
 [root@OpenWrt:~]# sestatus
 SELinux status:           enabled
 SELinuxfs mount:          /sys/fs/selinux
@@ -565,7 +516,6 @@ indicating that the process has all the permissions it needs to
 function.
 ```
 [root@OpenWrt:~]# dmesg | grep -i denied
-...
 [root@OpenWrt:~]# exit
 ```
 We will now append some of the rules we were able to identify from
@@ -665,8 +615,6 @@ Create the updated ipk package.
 ```
 [kcinimod@brutus ~]$ cd openwrt
 [kcinimod@brutus openwrt]$ make package/selinux-policy-myfork/compile
-Collecting package info: done
-...
 ```
 If the operation succeeds then the `ipk` package can be found in
 `~/openwrt/bin/packages/*/custom.
@@ -683,9 +631,6 @@ include "procd-selinux","busybox-selinux" and to exclude
 ```
 [kcinimod@brutus openwrt]$ cd ~/openwrt-imagebuilder*-x86_64
 [kcinimod@brutus openwrt-imagebuilder-mvebu-cortexa9.Linux-x86_64]$ make image PACKAGES="/home/kcinimod/openwrt/bin/packages/arm_cortex-a9_vfpv3-d16/custom/selinux-policy-myfork_2020-10-19-c5e28890_all.ipk procd-selinux busybox-selinux -busybox -procd"
-Checking 'working-make'... ok.
-...
-Calculating checksums...
 ```
 This should yield factory and sysupgrade images that can be deployed.
 ```
@@ -705,10 +650,7 @@ is reachable on the network, and perform the upgrade.
 [kcinimod@brutus openwrt-imagebuilder-mvebu-cortexa9.Linux-x86_64]$ cd ~
 [kcinimod@brutus ~]$ scp /home/kcinimod/openwrt-imagebuilder-mvebu-cortexa9.Linux-x86_64/bin/targets/mvebu/cortexa9/openwrt-mvebu-cortexa9-linksys_wrt1900acs-squashfs-sysupgrade.bin root@192.168.1.1:/tmp/openwrt-mvebu-cortexa9-linksys_wrt1900acs-squashfs-sysupgrade.bin
 [kcinimod@brutus ~]$ ssh root@192.168.1.1
-...
 [root@OpenWrt:~]# sysupgrade -F -n -v /tmp/*.bin
-Commencing upgrade. Closing aall shell sessions.
-...
 ```
 This wraps the exercise up. These were the broad outlines. To be able
 to contribute your work back your policy would have to adhere to some
