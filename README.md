@@ -36,10 +36,10 @@ accurate and comprehensive.
 ## Before we start
 
 In this example we're going to start by assembling OpenWrt SELinux
-policy. By default OpenWrt provides a generic policy that includes
-support for all known functionality. The goal of this default policy
-is to cover as many aspects of OpenWrt as possible and to make it
-"just" work by default on as many devices and device configurations
+policy. By default OpenWrt provides a generic policy with the aim to
+include support for all known functionality. The goal of this default
+policy is to cover as many aspects of OpenWrt as possible and to make
+it "just" work by default on as many devices and device configurations
 as possible. The downside of this default policy is that because it
 is generic it is also inefficient as the policy might include rules
 for components and functionalitty that you may not have installed or
@@ -245,7 +245,7 @@ will report any dependency issues that you can then resolve and try
 again. if the built succeeded then commit the result and push it to
 Github.
 ```
-[kcinimod@brutus selinux-policy-myfork (master *=)]$ git commit -am "added myfork target to makefile"
+[kcinimod@brutus selinux-policy-myfork (master *=)]$ git commit -am "adds myfork target to makefile"
 [kcinimod@brutus selinux-policy-myfork (master>)]$ git push
 ```
 
