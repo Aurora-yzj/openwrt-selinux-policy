@@ -18,7 +18,7 @@ The policy will be deployed and tested on a Linksys WRT1900ACS
 wireless router. In addition to the above we have access to a Git
 repository that can be accessed with the `https://` protocol. This can
 be a private Git repository or a public service such as GitLab or
-GitHub.
+Github.
 
 ## Goals
 
@@ -70,7 +70,7 @@ so that we can compile SELinux policy written in "CIL".
 ## Clone OpenWrt with Git
 
 Now that we have the build requirements taken care of we can get the
-sources for OpenWrt. We'll clone OpenWrt from its mirror on GitHub.
+sources for OpenWrt. We'll clone OpenWrt from its mirror on Github.
 ```
 [kcinimod@brutus ~]$ git clone https://github.com/openwrt/openwrt.git
 ```
@@ -171,16 +171,16 @@ good example.
 At this point youre essentially forking the policy. Publish your
 forked Git repository and ensure that the forked Git repository is
 accessible with the `https://` protocol. You can for example use
-GitLab or GitHub for this but we'll use GitHub in this example.
+GitLab or Github for this but we'll use Github in this example.
 
-* Create a new `selinux-policy-myfork` empty repository on GitHub
+* Create a new `selinux-policy-myfork` empty repository on Github
 
 ## Forking selinux-policy
 
 I created an new empty `doverride/selinux-policy-myfork.git`
-repository on GitHub. I will clone this and then I will also clone
+repository on Github. I will clone this and then I will also clone
 the upstream `selinux-policy`, simply consolidate the two, and push
-"myfork" to GitHub.
+"myfork" to Github.
 ```
 [kcinimod@brutus openwrt]$ cd ~
 [kcinimod@brutus ~]$ git clone git@github.com:doverride/selinux-policy-myfork.git
@@ -200,12 +200,10 @@ the upstream `selinux-policy`, simply consolidate the two, and push
 
 One of our goals has been achieved namely that of forking the OpenWrt
 `selinux-policy` straight from upstream so that we are working with
-up-to-date policy.
-
-We would like to build the whole policy minus the `sandbox.cil`
-module. To achieve this we will add a target to
+up-to-date policy. We would like to build the whole policy minus the
+`sandbox.cil` module. To that end we will add a target to
 `~/selinux-policy-myfork/Makefile` that can be used to achieve the
-desired effect. Before pushing the result to GitHub we will ensure
+desired effect. Before pushing the result to Github we will ensure
 that the policy builds. Open `~/selinux-policy-myfork/Makefile` and
 make the following changes
 
@@ -245,7 +243,7 @@ See if it builds:
 If the built failed then look carefully at the compiler output as it
 will report any dependency issues that you can then resolve and try
 again. if the built succeeded then commit the result and push it to
-GitHub.
+Github.
 ```
 [kcinimod@brutus selinux-policy-myfork (master *=)]$ git commit -am "added myfork target to makefile"
 [kcinimod@brutus selinux-policy-myfork (master>)]$ git push
@@ -572,11 +570,11 @@ root@OpenWrt:~# dmesg | grep -i denied
 root@OpenWrt:~# exit
 ```
 It works in enforcing mode. We can just add that last rule and then
-push the policy to GitHub, and use that to build a new `ipk` package,
+push the policy to Github, and use that to build a new `ipk` package,
 and then create a new sysupgrade image with our new policy using the
 `Image Builder`.
 
-## Append the last rule, build and push to GitHub
+## Append the last rule, build and push to Github
 ```
 [kcinimod@brutus selinux-policy-myfork]$ cat >> src/agent/helloworld.cil <<EOF
 (in .helloworld ;; insert into existing helloworld container
