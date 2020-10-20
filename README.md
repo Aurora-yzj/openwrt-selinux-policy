@@ -366,11 +366,10 @@ We'll extract the Image Builder archive first.
 [kcinimod@brutus ~]$ tar xf openwrt-imagebuilder*.tar.xz
 ```
 Now that we have a package we can enclose it with our images using
-"Image Builder". We currently have to tell Image builder to include
-"procd-selinux" and "busybox-selinux".
+"Image Builder".
 ```
 [kcinimod@brutus ~]$ cd openwrt-imagebuilder*-x86_64
-[kcinimod@brutus openwrt-imagebuilder-mvebu-cortexa9.Linux-x86_64]$ make image PACKAGES="/home/kcinimod/openwrt/bin/packages/arm_cortex-a9_vfpv3-d16/custom/selinux-policy-myfork_2020-10-19-4b8d8c06_all.ipk procd-selinux busybox-selinux"
+[kcinimod@brutus openwrt-imagebuilder-mvebu-cortexa9.Linux-x86_64]$ make image PACKAGES="/home/kcinimod/openwrt/bin/packages/arm_cortex-a9_vfpv3-d16/custom/selinux-policy-myfork_2020-10-19-4b8d8c06_all.ipk"
 ```
 This should yield factory and sysupgrade images that can be deployed
 ```
@@ -611,18 +610,15 @@ Create the updated ipk package.
 ```
 If the operation succeeds then the `ipk` package can be found in
 `~/openwrt/bin/packages/*/custom.
-
 ```
 [kcinimod@brutus openwrt]$ ls ~/openwrt/bin/packages/*/custom/*.ipk
 /home/kcinimod/openwrt/bin/packages/arm_cortex-a9_vfpv3-d16/custom/selinux-policy-myfork_2020-10-19-c5e28890_all.ipk
 ```
 Now that we have an updated package we can enclose it with our images
-using "Image Builder". We currently have to tell Image builder to
-include "procd-selinux" and "busybox-selinux".
-
+using "Image Builder".
 ```
 [kcinimod@brutus openwrt]$ cd ~/openwrt-imagebuilder*-x86_64
-[kcinimod@brutus openwrt-imagebuilder-mvebu-cortexa9.Linux-x86_64]$ make image PACKAGES="/home/kcinimod/openwrt/bin/packages/arm_cortex-a9_vfpv3-d16/custom/selinux-policy-myfork_2020-10-19-c5e28890_all.ipk procd-selinux busybox-selinux"
+[kcinimod@brutus openwrt-imagebuilder-mvebu-cortexa9.Linux-x86_64]$ make image PACKAGES="/home/kcinimod/openwrt/bin/packages/arm_cortex-a9_vfpv3-d16/custom/selinux-policy-myfork_2020-10-19-c5e28890_all.ipk"
 ```
 This should yield factory and sysupgrade images that can be deployed.
 ```
