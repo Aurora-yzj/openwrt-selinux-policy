@@ -369,10 +369,10 @@ We'll extract the Image Builder archive first.
 ```
 Now that we have a package we can enclose it with our images using
 "Image Builder". We currently have to tell Image builder to include
-"procd-selinux","busybox-selinux" and to exclude "procd","busybox".
+"procd-selinux" and "busybox-selinux".
 ```
 [kcinimod@brutus ~]$ cd openwrt-imagebuilder*-x86_64
-[kcinimod@brutus openwrt-imagebuilder-mvebu-cortexa9.Linux-x86_64]$ make image PACKAGES="/home/kcinimod/openwrt/bin/packages/arm_cortex-a9_vfpv3-d16/custom/selinux-policy-myfork_2020-10-19-4b8d8c06_all.ipk procd-selinux busybox-selinux -busybox -procd"
+[kcinimod@brutus openwrt-imagebuilder-mvebu-cortexa9.Linux-x86_64]$ make image PACKAGES="/home/kcinimod/openwrt/bin/packages/arm_cortex-a9_vfpv3-d16/custom/selinux-policy-myfork_2020-10-19-4b8d8c06_all.ipk procd-selinux busybox-selinux"
 ```
 This should yield factory and sysupgrade images that can be deployed
 ```
@@ -482,7 +482,6 @@ and the file context for `/root/helloworld` can be applied with
 [kcinimod@brutus selinux-policy-myfork[$ ssh root@192.168.1.1
 root@OpenWrt:~# load_policy
 root@OpenWrt:~# restorecon -v /root/helloworld
-restorecon: reset /root/helloworld context u:r:file.homefile->u:r:helloworld.execfile
 ```
 Now it is time to test but before we do we will clear the kernel
 ring buffer so that we do not get confused by any "avc denials"
@@ -490,8 +489,8 @@ triggered by us copying the policy.31 and file_contexts files over,
 because SELinux would not have permitted these operations if it were
 enforcing the policy.
 
-Another thing to be aware of is that SELinux will cache events and
-events that occur in permissive mode will only be printed once to
+Another thing to be aware of is that SELinux will cache access vectors
+and events that occur in permissive mode will only be printed once to
 avoid flooding of the logs. If you want to force this cache to be
 flushed you can toggle the mode from permissive to enforcing and then
 back from enforcing to permissive.
@@ -621,12 +620,11 @@ If the operation succeeds then the `ipk` package can be found in
 ```
 Now that we have an updated package we can enclose it with our images
 using "Image Builder". We currently have to tell Image builder to
-include "procd-selinux","busybox-selinux" and to exclude
-"procd","busybox".
+include "procd-selinux" and "busybox-selinux".
 
 ```
 [kcinimod@brutus openwrt]$ cd ~/openwrt-imagebuilder*-x86_64
-[kcinimod@brutus openwrt-imagebuilder-mvebu-cortexa9.Linux-x86_64]$ make image PACKAGES="/home/kcinimod/openwrt/bin/packages/arm_cortex-a9_vfpv3-d16/custom/selinux-policy-myfork_2020-10-19-c5e28890_all.ipk procd-selinux busybox-selinux -busybox -procd"
+[kcinimod@brutus openwrt-imagebuilder-mvebu-cortexa9.Linux-x86_64]$ make image PACKAGES="/home/kcinimod/openwrt/bin/packages/arm_cortex-a9_vfpv3-d16/custom/selinux-policy-myfork_2020-10-19-c5e28890_all.ipk procd-selinux busybox-selinux"
 ```
 This should yield factory and sysupgrade images that can be deployed.
 ```
