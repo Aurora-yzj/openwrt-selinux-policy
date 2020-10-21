@@ -1,6 +1,8 @@
-# OpenWrt SELinux policy customization and testing overview
+# OpenWrt SELinux policy customization and testing
 
 ⚠️WARNING!!! THESE PROCEDURES MAY RESULT IN BRICKED OR INACCESSIBLE DEVICES !!!⚠️
+
+DRAFT
 
 ## Intro
 
@@ -117,7 +119,8 @@ the bottom of the screen.
 
 ## Building OpenWrt and its Image Builder
 
-Now were ready to build OpenWrt and its IB. This will take some time.
+Now were ready to build OpenWrt and its `Image Builder`. This will
+take some time.
 ```
 [kcinimod@brutus openwrt]$ make -j$((`nproc` + 1))
 ```
@@ -173,14 +176,14 @@ forked Git repository and ensure that the forked Git repository is
 accessible with the `https://` protocol. You can for example use
 GitLab or Github for this but we'll use Github in this example.
 
-* Create a new `selinux-policy-myfork` empty repository on Github
+* Create a new `selinux-policy-myfork` empty repository on Github.
 
 ## Forking selinux-policy
 
 I created an new empty `doverride/selinux-policy-myfork.git`
 repository on Github. I will clone this and then I will also clone
 the upstream `selinux-policy`, simply consolidate the two, and push
-"myfork" to Github.
+`selinux-policy-myfork` to Github.
 ```
 [kcinimod@brutus openwrt]$ cd ~
 [kcinimod@brutus ~]$ git clone git@github.com:doverride/selinux-policy-myfork.git
@@ -205,7 +208,7 @@ up-to-date policy. We would like to build the whole policy minus the
 `~/selinux-policy-myfork/Makefile` that can be used to achieve the
 desired effect. Before pushing the result to Github we will ensure
 that the policy builds. Open `~/selinux-policy-myfork/Makefile` and
-make the following changes
+make the following changes.
 
 Add a "myfork" target - Change this line ...:
 ```
@@ -264,79 +267,81 @@ Create a local feeds directory (example ~/mypackages).
 ```
 Copy `~/selinux-policy-myfork/support/selinux-policy-XXXX` to the
 local feeds `~/mypackages` directory and rename it to
-selinux-policy-myfork.
+`selinux-policy-myfork`.
 ```
 [kcinimod@brutus ~]$ cp -r selinux-policy-myfork/support/selinux-policy-XXXX mypackages/selinux-policy-myfork
 ```
-Replace `PKG_NAME`
+Replace `PKG_NAME`.
 ```
 [kcinimod@brutus ~]$ sed -i 's/PKG_NAME:=selinux-policy-XXXX/PKG_NAME:=selinux-policy-myfork/' mypackages/selinux-policy-myfork/Makefile
 ```
-Replace `PKG_SOURCE` (point to your repository `https://` as this is where the source will be retrieved from):
+Replace `PKG_SOURCE` (point to your repository `https://` as this is where the source will be retrieved from).
 ```
 [kcinimod@brutus ~]$ sed -i 's#PKG_SOURCE_URL:=https://XXXX/selinux-policy-XXXX.git#PKG_SOURCE_URL:=https://github.com/doverride/selinux-policy-myfork.git#' mypackages/selinux-policy-myfork/Makefile
 ```
-Replace `PKG_SOURCE_DATE` (use the current date or the date of the last commit):
+Replace `PKG_SOURCE_DATE` (use the current date or the date of the last commit).
 ```
 [kcinimod@brutus ~]$ sed -i 's/PKG_SOURCE_DATE:=XXXX-XX-XX/PKG_SOURCE_DATE:=2020-10-19/' mypackages/selinux-policy-myfork/Makefile
 ```
-Replace `PKG_SOURCE_VERSION` (use the commit ID of your latest commit)
+Replace `PKG_SOURCE_VERSION` (use the commit ID of your latest commit).
 ```
 [kcinimod@brutus ~]$ sed -i 's/PKG_SOURCE_VERSION:=XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/PKG_SOURCE_VERSION:=4b8d8c06c5f1dc8641b2b08b44d7fde955e2b9db/' mypackages/selinux-policy-myfork/Makefile
 ```
-Replace `PKG_MIRROR_HASH` (we'll skip this during development)
+Replace `PKG_MIRROR_HASH` (we'll skip this during development).
 ```
 [kcinimod@brutus ~]$ sed -i 's/PKG_MIRROR_HASH:=XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/PKG_MIRROR_HASH:=skip/' mypackages/selinux-policy/myfork/Makefile
 ```
-Replace `PKG_MAINTAINER` (use your name and e-mail address)
+Replace `PKG_MAINTAINER` (use your name and e-mail address).
 ```
 [kcinimod@brutus ~]$ sed -i 's/PKG_MAINTAINER:=XXXX <XXXX@XXXX>/PKG_MAINTAINER:=Dominick Grift <dominick.grift@defensec.nl>/' mypackages/selinux-policy-myfork/Makefile
 ```
-Replace `PKG_CPE_ID` (whatever)
+Replace `PKG_CPE_ID` (whatever).
 ```
 [kcinimod@brutus ~]$ sed -i 's#PKG_CPE_ID:=cpe:/a:XXXX:selinux-policy-XXXX#PKG_CPE_ID:=cpe:/a:myfork:selinux-policy-myfork#' mypackages/selinux-policy-myfork/Makefile
 ```
-Replace "define/Package"
+Replace `define/Package`.
 ```
 [kcinimod@brutus ~]$ sed -i 's#define Package/selinux-policy-XXXX#define Package/selinux-policy-myfork#' mypackages/selinux-policy-myfork/Makefile
 ```
-Replace "TITLE"
+Replace `TITLE`.
 ```
 [kcinimod@brutus ~]$ sed -i 's/TITLE:=XXXX SELinux policy for OpenWrt/TITLE:=Myfork SELinux policy for OpenWrt/' mypackages/selinux-policy-myfork/Makefile
 ```
-Replace "URL"
+Replace `URL`.
 ```
 [kcinimod@brutus ~]$ sed -i 's#URL:=https://XXXX/#URL:=https://whatever/#' mypackages/selinux-policy-myfork/Makefile
 ```
-Replace "define/Package/description"
+Replace `define/Package/description`.
 ```
 [kcinimod@brutus ~]$ sed -i 's/XXXX SELinux security policy designed specifically for OpenWrt/Myfork SELinux security policy designed specifically for OpenWrt/' mypackages/selinux-policy-myfork/Makefile
 ```
-Replace "Build/Compile/Default" (we'll use our new "myfork" target)
+Replace `Build/Compile/Default` (we'll use our new "myfork" target).
 ```
 [kcinimod@brutus ~]$ sed -i 's#$(call Build/Compile/Default,policy)#$(call Build/Compile/Default,myfork)#' mypackages/selinux-policy-myfork/Makefile
 ```
-Replace the final occurance of "selinux-policy-XXXX"
+Replace the final occurance of `selinux-policy-XXXX`.
 ```
 [kcinimod@brutus ~]$ sed -i 's/selinux-policy-XXXX/selinux-policy-myfork/' mypackages/selinux-policy-myfork/Makefile
 ```
-Change the "mode from config" to "permissive" and change the policy model to "selinux-policy-myfork"
+Change the "mode from config" to `permissive` and change the policy
+model to `selinux-policy-myfork`.
 ```
 [kcinimod@brutus ~]$ sed -i 's/SELINUX=.*/SELINUX=permissive/' mypackages/selinux-policy-myfork/files/selinux-config
 [kcinimod@brutus ~]$ sed -i 's/SELINUXTYPE=.*/SELINUXTYPE=selinux-policy-myfork/' mypackages/selinux-policy-myfork/files/selinux-config
 ```
-Add/update the "mypackages" custom feed and selinux-policy-myfork
+Add/update the "mypackages" custom feed and `selinux-policy-myfork`.
 ```
 [kcinimod@brutus ~]$ echo "src-link custom ${HOME}/mypackages" >> openwrt/feeds.conf.default
 [kcinimod@brutus ~]$ ./openwrt/scripts/feeds update custom
 [kcinimod@brutus ~]$ ./openwrt/scripts/feeds install selinux-policy-myfork
 ```
-We have to run `menuconfig` again to select selinux-policy-myfork.
+We have to run `menuconfig` again to select `selinux-policy-myfork`.
 ```
 [kcinimod@brutus ~]$ cd ~/openwrt
 [kcinimod@brutus openwrt]$ make -j$((`nproc` + 1)) menuconfig
 ```
-Now we'll enable selinux-policy-myfork from the "Base system" submenu.
+Now we'll enable `selinux-policy-myfork` from the "Base system"
+submenu.
 ```
     Base system  --->
         <*> selinux-policy-myfork.................. Myfork SELinux policy for OpenWrt
@@ -346,27 +351,27 @@ the bottom of the screen.
 ```
     <Select>    < Exit >    < Help >    < Save >    < Load >
 ```
-Create the ipk package
+Create the `ipk` package.
 ```
 [kcinimod@brutus openwrt]$ make package/selinux-policy-myfork/compile
 ```
 If the operation succeeds then the `ipk` package can be found in
-`~/openwrt/bin/packages/*/custom
+`~/openwrt/bin/packages/*/custom`.
 ```
 [kcinimod@brutus openwrt]$ ls ~/openwrt/bin/packages/*/custom/*.ipk
 /home/kcinimod/openwrt/bin/packages/arm_cortex-a9_vfpv3-d16/custom/selinux-policy-myfork_2020-10-19-4b8d8c06_all.ipk
 ```
 
-## Create factory and sysupgrade images with selinux-policy-myfork using IB
+## Create installation and upgrade media with selinux-policy-myfork using Image Builder
 
-We'll extract the Image Builder archive first.
+We'll extract the `Image Builder` archive first.
 ```
 [kcinimod@brutus openwrt]$ cd ~
 [kcinimod@brutus ~]$ mv ~/openwrt/bin/targets/*/*/openwrt-imagebuilder*.tar.xz ~
 [kcinimod@brutus ~]$ tar xf openwrt-imagebuilder*.tar.xz
 ```
 Now that we have a package we can enclose it with our images using
-"Image Builder".
+`Image Builder`.
 ```
 [kcinimod@brutus ~]$ cd openwrt-imagebuilder*-x86_64
 [kcinimod@brutus openwrt-imagebuilder-mvebu-cortexa9.Linux-x86_64]$ make image PACKAGES="/home/kcinimod/openwrt/bin/packages/arm_cortex-a9_vfpv3-d16/custom/selinux-policy-myfork_2020-10-19-4b8d8c06_all.ipk"
@@ -419,8 +424,8 @@ in
 [selinux-policy](https://git.defensec.nl/?p=selinux-policy.git;a=tree;f=doc;h=895d86cb8411db19eaf52f3cf8ee192eefcf9be5;hb=HEAD)
 but if you need assistance or have any questions related to OpenWrt
 selinux-policy and SELinux policy/CIL in general then I can be reached
-on the `chat.freenode.net` IRC network in the #openwrt-devel and
-#selinux channels under the "grift" IRC nickname.
+on the `chat.freenode.net` IRC network in the `#openwrt-devel` and
+`#selinux` channels under the "grift" IRC nickname.
 
 We will be creating a simple script: `/root/helloworld` that simply
 prints the output of `echo "Hello from: $(id -Z)"` to the terminal and
@@ -544,7 +549,7 @@ EOF
 ```
 Same procedure as before, copy over the `policy.31` and
 `file_contexts` files, reload policy, clear the ring buffer, flush
-caches, retry and check `dmesg`.
+cache, retry and check `dmesg`.
 ```
 [kcinimod@brutus selinux-policy-myfork]$ scp policy.31 root@192.168.1.1:/etc/selinux/selinux-policy-myfork/policy/policy.31
 [kcinimod@brutus selinux-policy-myfork]$ scp file_contexts root@192.168.1.1:/etc/selinux/selinux-policy-myfork/contexts/files/file_contexts
@@ -589,9 +594,10 @@ EOF
 
 We have to adjust two things:
 
-* the ~/mypackages/selinux-policy-myfork/Makefile `PKG_SOURCE_VERSION`
-has to be updated to point to the new latest Git commit ID
-* the ~/mypackages/selinux-policy-myfork/files/selinux-config has to
+* The `~/mypackages/selinux-policy-myfork/Makefile`
+"PKG_SOURCE_VERSION" has to be updated to point to the new latest Git
+commit ID
+* The `~/mypackages/selinux-policy-myfork/files/selinux-config` has to
 be updated to change the mode from permissive to enforcing.
 
 Replace `PKG_SOURCE_VERSION` (use the commit ID of your latest commit).
@@ -599,23 +605,23 @@ Replace `PKG_SOURCE_VERSION` (use the commit ID of your latest commit).
 [kcinimod@brutus selinux-policy-myfork]$ cd ~
 [kcinimod@brutus ~]$ sed -i 's/PKG_SOURCE_VERSION:=4b8d8c06c5f1dc8641b2b08b44d7fde955e2b9db/PKG_SOURCE_VERSION:=c5e28890e61bed077477bcc526b8fb6639728c93/' mypackages/selinux-policy-myfork/Makefile
 ```
-Change the "mode from config" to "enforcing".
+Change the "mode from config" to `enforcing`.
 ```
 [kcinimod@brutus ~]$ sed -i 's/SELINUX=.*/SELINUX=enforcing/' mypackages/selinux-policy-myfork/files/selinux-config
 ```
-Create the updated ipk package.
+Create the updated `ipk` package.
 ```
 [kcinimod@brutus ~]$ cd openwrt
 [kcinimod@brutus openwrt]$ make package/selinux-policy-myfork/compile
 ```
 If the operation succeeds then the `ipk` package can be found in
-`~/openwrt/bin/packages/*/custom.
+`~/openwrt/bin/packages/*/custom`.
 ```
 [kcinimod@brutus openwrt]$ ls ~/openwrt/bin/packages/*/custom/*.ipk
 /home/kcinimod/openwrt/bin/packages/arm_cortex-a9_vfpv3-d16/custom/selinux-policy-myfork_2020-10-19-c5e28890_all.ipk
 ```
-Now that we have an updated package we can enclose it with our images
-using "Image Builder".
+Now that we have an updated `ipk` package we can enclose it with our
+images using `Image Builder`.
 ```
 [kcinimod@brutus openwrt]$ cd ~/openwrt-imagebuilder*-x86_64
 [kcinimod@brutus openwrt-imagebuilder-mvebu-cortexa9.Linux-x86_64]$ make image PACKAGES="/home/kcinimod/openwrt/bin/packages/arm_cortex-a9_vfpv3-d16/custom/selinux-policy-myfork_2020-10-19-c5e28890_all.ipk"
