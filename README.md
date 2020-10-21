@@ -455,13 +455,14 @@ would like the script to be contained and we would like to apply the
 principle of least privilege to this process.
 
 We can write a basic skeleton policy for this script off-device using
-our cloned selinux-policy-myfork repository, then build test that and
+our cloned s`elinux-policy-myfork` repository, then build test that and
 secure copy the compiled `policy.31` file along with the updated
 `file_contexts` file to the device. Then we can run the `load_policy`
 command to reload the updated policy into the system and use that
 procedure to test and refine the policy until it works.
 
 ## Extent selinux-policy-myfork with basic skeleton for helloworld
+
 ```
 [kcinimod@brutus ~]$ cd selinux-policy-myfork
 [kcinimod@brutus selinux-policy-myfork]$ cat > src/agent/helloworld.cil <<EOF
@@ -486,8 +487,8 @@ root@OpenWrt:~# load_policy
 root@OpenWrt:~# restorecon -v /root/helloworld
 ```
 Now it is time to test but before we do we will clear the kernel
-ring buffer so that we do not get confused by any "avc denials"
-triggered by us copying the policy.31 and file_contexts files over,
+ring buffer so that we do not get confused by any avc denials
+triggered by us copying the `policy.31` and `file_contexts` files over,
 because SELinux would not have permitted these operations if it were
 enforcing the policy.
 
@@ -504,13 +505,13 @@ hello from: u:r:helloworld.subj
 
 root@OpenWrt:~#
 ```
-The test concluded that the specified "domain transition" from
+The test concluded that the specified domain transition from
 `u:r:sys.subj` to `u:r:helloworld.subj` took place and since were still
 operating in the permissive development mode we can use the `dmesg`
 command to see what permissions would have been denied if we would
-instead have been operating in enforcing mode. These "avc denials" can
+instead have been operating in enforcing mode. These avc denials can
 be interpretted and translated to policy that we can append, and then
-test. Eventually no new "avc denials" should be printed to `dmesg`
+test. Eventually no new avc denials should be printed to `dmesg`
 indicating that the process has all the permissions it needs to
 function.
 ```
@@ -528,7 +529,7 @@ these.
 There is another gotcha you should be aware of. There are rules
 present in the policy that instruct SELinux to "silently" block
 specified events. This functionality can be useful if you want to
-block some access on purpose without SELinux printing "avc denials".
+block some access on purpose without SELinux printing avc denials.
 However sometimes these events might actually be needed. The
 `secilc` compiler allows you to compile the policy with these
 `dontaudit` rules removed via the `-D` and `--disable-dontaudit`
@@ -562,7 +563,7 @@ hello from: u:r:helloworld.subj
 
 root@OpenWrt:~# dmesg | grep -i denied
 ```
-The above `dmesg` command prints one more "avc denial" in permissive
+The above `dmesg` command prints one more avc denial in permissive
 mode, lets try this in enforcing mode.
 ```
 root@OpenWrt:~# dmesg -c
