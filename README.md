@@ -87,9 +87,9 @@ We'll update and "install" all available feeds.
 
 ## Addressing build configuration
 
-We have to create an OpenWrt IB archive that is (somewhat) tailored to
-our requirements. It has to have support for SELinux and for our
-Linksys WRT1900ACS target.
+We have to create an OpenWrt `Image builder` archive that is
+(somewhat) tailored to our requirements. It has to have support for
+SELinux and for our Linksys WRT1900ACS target.
 ```
 [kcinimod@brutus ~]$ cd ~/openwrt
 [kcinimod@brutus openwrt]$ make -j$((`nproc` + 1)) menuconfig
