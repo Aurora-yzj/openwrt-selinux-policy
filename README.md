@@ -94,7 +94,7 @@ SELinux and for our Linksys WRT1900ACS target.
 [kcinimod@brutus ~]$ cd ~/openwrt
 [kcinimod@brutus openwrt]$ make -j$((`nproc` + 1)) menuconfig
 ```
-After a short while a menu will appear. We will address our Linksys
+After a short while a menu appears. We will address our Linksys
 WRT1900ACS target first. The first three entries in the menu are used
 for this.
 ```
@@ -128,7 +128,7 @@ The procedure above will create various images with normal SELinux
 support and the default SELinux `selinux-policy` model in addition to
 an SELinux enabled `Image Builder`. In this example we will do a
 clean factory install using the created
-`~/openwrt/bin/targets//mvebu/cortexa9/openwrt-mvebu-cortexa9-linksys_wrt1900acs-squashfs-factory.img`
+`~/openwrt/bin/targets/mvebu/cortexa9/openwrt-mvebu-cortexa9-linksys_wrt1900acs-squashfs-factory.img`
 factory image to test and ensure that the defaults work. The procedure
 of doing a factory install is documented elsewhere but:
 
@@ -138,7 +138,7 @@ of doing a factory install is documented elsewhere but:
 `https://192.168.1.1`
 * The interface provides an option to manually flash the device with a
 specified image, I pointed it to the built
-`~/openwrt/bin/targets//mvebu/cortexa9/openwrt-mvebu-cortexa9-linksys_wrt1900acs-squashfs-factory.img`
+`~/openwrt/bin/targets/mvebu/cortexa9/openwrt-mvebu-cortexa9-linksys_wrt1900acs-squashfs-factory.img`
 factory image and confirmed multiple times that I want to flash the
 device using this image.
 * The device rebooted and I used `ssh root@192.168.1.1` to log into
