@@ -455,7 +455,7 @@ would like the script to be contained and we would like to apply the
 principle of least privilege to this process.
 
 We can write a basic skeleton policy for this script off-device using
-our cloned s`elinux-policy-myfork` repository, then build test that and
+our cloned `selinux-policy-myfork` repository, then build test that and
 secure copy the compiled `policy.31` file along with the updated
 `file_contexts` file to the device. Then we can run the `load_policy`
 command to reload the updated policy into the system and use that
