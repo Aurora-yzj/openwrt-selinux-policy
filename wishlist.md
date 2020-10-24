@@ -6,3 +6,4 @@ These are some area's that might need some attention:
 * OpenVPN (VPN in general)
 * VOIP (Telephone in general)
 * Video
+* Device that boots from mmc removable storage (RSPI?)
