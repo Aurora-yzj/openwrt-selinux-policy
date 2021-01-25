@@ -2,6 +2,8 @@
 
 These are some area's that might need some attention:
 
+* bird/birdc
+
 * multi-wan (mwan3)
 
 * SAMBA server (NAS in general)
