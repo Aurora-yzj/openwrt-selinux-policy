@@ -2,9 +2,8 @@
 
 These are some area's that might need some attention:
 
-* bird/birdc
-
-* igmpproxy
+* bird2
+* udpxy
 * multi-wan (mwan3)
 
 * SAMBA server (NAS in general)
